@@ -1,0 +1,2116 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Consumer Loans}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Consumer Loans}\label{consumer-loans}
+
+It may be possible to predict the default probability of consumer loans
+and investigate which variables specific to the loan is a significant
+predictor. In addition, we may be able to determine the value of a
+consumer if they have defaulted. We therefore have two tasks: determine
+which variables have the most significant impact on default probability;
+obtain a model for the value of a consumer once they have defaulted.
+
+For variable significance and variable selection, we can start with a
+linear model. But first we explore the data once we have imported the
+necessary libraries.
+
+    \subsection{Import Libraries}\label{import-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{statistics}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}HVAD\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}compat\textbackslash{}pandas.py:56: FutureWarning: The pandas.core.datetools module is deprecated and will be removed in a future version. Please use the pandas.tseries module instead.
+  from pandas.core import datetools
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Get Versions}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{version}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{31}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Numpy Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pandas Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matplotlib Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Seaborn Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sklearn Version = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sklearn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Python Version = 3.6.4 |Anaconda custom (64-bit)
+Numpy Version = 1.14.0
+Pandas Version = 0.22.0
+Matplotlib Version = 2.1.2
+Seaborn Version = 0.8.1
+sklearn Version = 0.19.1
+
+    \end{Verbatim}
+
+    \subsection{The Loans Dataset}\label{the-loans-dataset}
+
+    First we read in the excel sheets and write to csv as a 1-time action
+since reading from CSV is quicker in subsequent notebook startups.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Performance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StaticData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{StaticData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoansDataset.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Static Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{Performance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoansDataset.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Performance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Note that here, all NA values are converted to null or empty}
+            \PY{n}{StaticData}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StaticData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{Performance}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Performance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{StaticData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StaticData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{Performance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Performance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    We can see below that there are 72167 records. The LoanID is viable for
+use as a unique index since we see that there are 72167 unique values
+for this column. This also means that we can merge the StaticData
+DataFrame with the Performance DataFrame on LoanID and not generate
+multiple records.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{StaticData}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The number of unique entries for LoanID in the StaticData DataFrame is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{StaticData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The number of unique entries for LoanID in the Performance DataFrame is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Performance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 72167 entries, 0 to 72166
+Data columns (total 20 columns):
+Year                             72167 non-null int64
+LoanID                           72167 non-null int64
+Original Loan Size               72167 non-null float64
+Origination Date                 72167 non-null object
+Original Term                    72167 non-null int64
+APR                              72167 non-null float64
+Loan Rate                        72167 non-null float64
+LTV                              72167 non-null float64
+Monthly Instalment               72167 non-null float64
+Type 1                           72167 non-null object
+Type 2                           72167 non-null object
+Borrower's Employment Status     72167 non-null object
+Risk Tier                        72167 non-null object
+Exposure At Default              3168 non-null float64
+Further Recovery Expected Y/N    3168 non-null object
+Recoveries @ 6m                  1801 non-null float64
+Recoveries @ 9m                  1315 non-null float64
+Recoveries @ 12m                 909 non-null float64
+Total Recovery                   3168 non-null float64
+Prepayment Amount                72167 non-null float64
+dtypes: float64(11), int64(3), object(6)
+memory usage: 11.0+ MB
+
+
+The number of unique entries for LoanID in the StaticData DataFrame is 72167
+
+
+The number of unique entries for LoanID in the Performance DataFrame is 72167
+
+    \end{Verbatim}
+
+    Here's the distribution of loans accross years
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{StaticData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21315ce5a58>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It seems that most loans are dated in 2017. Additionally,
+\emph{Employed} consumers take/are given loans the most regardless of
+the year.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Borrower}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Employment Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{StaticData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21315cd9f98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We merge the Performance DataFrame with the StaticData DataFrame to
+obtain performance information for each loan
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} ACTION: Merge}
+        \PY{n}{MergedData} \PY{o}{=} \PY{n}{StaticData}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{Performance}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    What does default within the first 24 months actually mean? We will have
+to give a specific definition and the definition we give here is 'All
+cases with default within the first 12 months is a subset of all cases
+with default within the first 24 months'. We can see below that there is
+some ambiguity in the \emph{Status 24} column. Specifically, there are
+709 cases where there has been a default within the first 12 months but
+we have 'NA' in the \emph{Status 24} column.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 709
+\end{Verbatim}
+            
+    We therefore create a new column called \emph{Default 24} which caters
+for this. Below we see that there are no longer any cases that allow for
+a default within the first 12 months but 'NA' in the first 24 months. We
+also make sure that in cases where there is no default within 12 months,
+and the \emph{Status 24} column has 'NA' that there is no default within
+24 months also.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} ACTION: Create new Default24 column and use this instead in the models}
+         
+         \PY{k}{def} \PY{n+nf}{default24}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This function is used in the creation of the Default24 column in accordance with the definition we use here.}
+         \PY{l+s+sd}{    x := A row of a DataFrame with x[0], x[1] the \PYZsq{}Status 12\PYZsq{} and \PYZsq{}Status 24\PYZsq{} columns respectively.}
+         \PY{l+s+sd}{    The logic is: If Status 12 = 1, then Default24 = 1. If Status 12 = 0 and Status 24 = NA, then Default24 = 0,}
+         \PY{l+s+sd}{    otherwise, Default24 = Status 24.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Create a new column dependent on whether there has been a default within the first 12 months}
+         \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{default24}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ cases of ambiguity with the }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ column}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 0 cases of ambiguity with the 'Default24' column
+
+    \end{Verbatim}
+
+    We can see that in proportion to the total number of loans, there are
+very few that have defaulted:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x213162e5780>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x213162e5630>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Default Probability}\label{default-probability}
+
+    It seems that except for year 2014 for which there was no default
+information, the average \emph{Loan Rate} for those that didn't default
+is slightly lower than for those that did default. This holds true for
+both the 12 month and 24 month periods. This suggests that the
+\emph{Loan Rate} can give us some information as to the probability of
+default:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} ACTION: Add loan rate to the model parameters}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21316616710>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21316623390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Consumers that default have a consistently larger Original Loan Size on
+average each year. This may also be an indicator of default:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} ACTION: Add Original Loan Size to the model parameters}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x213166dee80>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21316796f98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Let's see if \emph{Employment Status} is any indication for default. We
+can't just do a count plot since we know that more Employed Consumers
+take out loans. So we find the ratio of default in each category by
+grouping on \emph{Borrower's Employment Status}. We see that whether a
+consumer is \emph{Self-employed}, \emph{Employed} or \emph{Other} has an
+effect on the default probability:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} ACTION: Create dummy data for Self\PYZhy{}employed and other and add them to the model parameters}
+         \PY{n}{MeanDefault} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Borrower}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Employment Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Borrower}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Employment Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Borrower}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Employment Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MeanDefault}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131686a358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Borrower}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Employment Status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MeanDefault}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131684e5f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see below that as the \emph{Original Term} increases, the
+proportion of default also increases (although this is less pronounced
+for the 'Default24' category). We can create bins of 5 and categorise in
+order to not have too few records in a bucket. We first create a
+function to categorise Original Term \textless{}= 25 as 25 and Original
+Term \textgreater{}= 70 as 70.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{getTermCategory}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    A function to be used to even out the number of observation within a term bucket in order to see default rates}
+         \PY{l+s+sd}{    within each category.}
+         \PY{l+s+sd}{    x := An element from the \PYZsq{}Original Term\PYZsq{} column of the StaticData table.}
+         \PY{l+s+sd}{    Logic: Bucket Original Term \PYZlt{}= 25 and \PYZgt{}= 70 into their own categories.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{25}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{25}
+             \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{70}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{70}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} ACTION: Create Original Term buckets of 5. Group up \PYZgt{}= 75 and \PYZlt{}=15 into their own categories. }
+         \PY{c+c1}{\PYZsh{} Create dummy variables. Then add to the model as a parameter.}
+         
+         \PY{c+c1}{\PYZsh{} As the term increases, there is a slightly higher chance of default for both 12 and 24 month defaults.}
+         \PY{c+c1}{\PYZsh{} But this is only true for records with Original Term between 15 and 75 since we don\PYZsq{}t have enough data otherwise}
+         
+         \PY{c+c1}{\PYZsh{} We will create buckets of 5}
+         \PY{n}{x} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{xdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TermCategory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{getTermCategory}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} There are only a small amount of non null records with original term \PYZgt{} 70 and \PYZlt{} 15 so we omit those}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TermCategory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TermCategory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ci}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TermCategory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ci}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21316a5eeb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    APR is on average higher for those that default.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} ACTION: Add APR as a continuous variable to the model}
+         
+         \PY{c+c1}{\PYZsh{} Those that default have higher APR on average}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{APR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x21316b4a0b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Those that default have higher APR on average}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{APR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131ae28cf8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Tier is a good indicator since higher tiers correspond to higher
+proportion of default for both the 12 month and 24 month periods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} ACTION: Create dummy indicators for Tier and add it to the model.}
+         
+         \PY{c+c1}{\PYZsh{} Tier looks to be an indicator}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Risk Tier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Untiered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x213169e59e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Tier may be an indicator}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Risk Tier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{,}\PY{n}{order}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Untiered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131ae45358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    LTV seems to be correlated with default proportion. The distribution of
+LTV is right skewed.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LTV}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{kde}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131aed0cc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{def} \PY{n+nf}{getLTVCategory}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    A function to be used to bucket the LTV to even out observation within each bucket so a default proportion can be observed.}
+         \PY{l+s+sd}{    x := An element in from the LTV column of the StaticData DataFrame.}
+         \PY{l+s+sd}{    Logic: Bucket LTV \PYZlt{}= 0.4 and \PYZgt{}= 1.2 into their own buckets.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.4}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.4}
+             \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{1.2}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{1.2}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} ACTION: Create LTV buckets. Add this as a numerical feature to the model parameters}
+         
+         \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LTVBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LTV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{getLTVCategory}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LTVBucket}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131afa8e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the size of A4 paper}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LTVBucket}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131afbaf28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The \emph{Monthly Instalment} as a percentage of the \emph{Original Loan
+Size} looks to be related to an increased proportion of defaults.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} ACTION: Create a Monthly Instalment pct column. Bucket these. Then add to the model as a parameter.}
+         
+         \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyInstalmentpct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monthly Instalment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MonthlyInstalmentpct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{kde}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131b00d908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{def} \PY{n+nf}{getInstalmentpctCategory}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    A function to be used to bucket the \PYZsq{}Monthly Instalment\PYZsq{} to even out observation within each }
+         \PY{l+s+sd}{    bucket so a default proportion can be observed.}
+         \PY{l+s+sd}{    x := An element in from the \PYZsq{}Monthly Instalment\PYZsq{} column of the StaticData DataFrame.}
+         \PY{l+s+sd}{    Logic: Bucket Monthly Instalment \PYZlt{}= 1.5 and \PYZgt{}= 4 into their own buckets.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{1.5}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{1.5}
+             \PY{k}{elif} \PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{4}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InstalmentpctBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyInstalmentpct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{getInstalmentpctCategory}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{InstalmentpctBucket}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Status 12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131b0f7ba8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{InstalmentpctBucket}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Default24}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{MergedData}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2131c1ae908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{statusNull122015} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{statusNull242015} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2015 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull122015}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2015 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull242015}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{n}{statusNull122016} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{statusNull242016} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2016 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull122016}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2016 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull242016}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{n}{statusNull122017} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{statusNull242017} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2017 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull122017}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2017 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull242017}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{n}{statusNull122018} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{statusNull242018} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2018 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull122018}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f the data in 2018 have non\PYZhy{}null }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ values}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{statusNull242018}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100.0 \% of the data in 2015 have non-null 'Status 12' values
+100.0 \% of the data in 2015 have non-null 'Status 24' values
+
+100.0 \% of the data in 2016 have non-null 'Status 12' values
+29.11774039987306 \% of the data in 2016 have non-null 'Status 24' values
+
+27.69503664781284 \% of the data in 2017 have non-null 'Status 12' values
+0.0 \% of the data in 2017 have non-null 'Status 24' values
+
+0.0 \% of the data in 2018 have non-null 'Status 12' values
+0.0 \% of the data in 2018 have non-null 'Status 24' values
+
+    \end{Verbatim}
+
+    \paragraph{Modelling Value as a function of Loan
+Rate}\label{modelling-value-as-a-function-of-loan-rate}
+
+We may be able to model the
+\(\textbf{Value=Original Loan Size} \times \textbf{Total Recovery}\) as
+a function of \emph{Loan Rate} and \emph{Original Term}. Here we are
+only interested in the consumers that have a non-null \emph{Exposure At
+Default} because we want to obtain a model for those that have
+defaulted. We see below that \emph{Value} looks to be a non-linear
+function of \emph{Loan Rate} and \emph{Total Recovery}. We get a much
+more linear scatter plot when we use \(\textbf{Loan Rate}^2\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} ACTION: Create a Value column. Add the parameters Loan Rate and Original Term to a Linear Regression model with both mixed effect (synergy effect) and separately}
+         
+         \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{MergedDataDefaulted12} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exposure At Default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{MergedDataDefaulted24} \PY{o}{=} \PY{n}{MergedData}\PY{p}{[}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{MergedData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exposure At Default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} MergedDataDefaulted12 = MergedData[MergedData[\PYZsq{}Status 12\PYZsq{}] == 1]}
+         \PY{c+c1}{\PYZsh{} MergedDataDefaulted24 = MergedData[MergedData[\PYZsq{}Status 24\PYZsq{}] == 1]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s obtain a relationship with Loan Rate}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{MergedDataDefaulted12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MergedDataDefaulted12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.ylim(0,0.05)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <matplotlib.collections.PathCollection at 0x2131c31bcc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{MergedDataDefaulted12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MergedDataDefaulted12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:} <matplotlib.collections.PathCollection at 0x213232c51d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s obtain a relationship with APR}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{MergedDataDefaulted24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MergedDataDefaulted24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}plt.ylim(0,2)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} <matplotlib.collections.PathCollection at 0x213235a8898>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n}{MergedDataDefaulted24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MergedDataDefaulted24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} <matplotlib.collections.PathCollection at 0x213237a04e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Transformation and
+Cleaning}\label{transformation-and-cleaning}
+
+    Our transform and clean function should have the following actions from
+our analysis above:
+
+0- ACTION: Merge
+
+1- ACTION: Create new Default24 column and use this instead in the
+models
+
+2- ACTION: Create dummy data for Self-employed
+
+3- ACTION: Create Original Term buckets of 5. Group up \textgreater{}=
+75 and \textless{}=15 into their own categories
+
+4- ACTION: Create dummy indicators for Tier
+
+5- ACTION: Create LTV buckets
+
+6- ACTION: Create a Monthly Instalment pct column and bucket them
+
+7- ACTION: Create an Value column
+
+8- ACTION: Create Loan Rate\^{}2 and Loan Rate*OriginalTerm Columns
+
+The Model should have the following parameters:
+
+1- ACTION: Add loan rate to the model parameters
+
+2- ACTION: Add Original Loan Size to the model parameters
+
+3- ACTION: Add dummy data for Employment Status to the model parameters
+
+4- ACTION: Add Term Buckets to model parameters
+
+5- ACTION: Add APR as a continuous variable to the model
+
+6- ACTION: Add dummy data for Term to the model
+
+7- ACTION: Add LTV buckets as a numerical feature to the model
+parameters
+
+8- ACTION: Add the bucketed Monthly Instalment pct buckets to the model
+as a parameter
+
+9- ACTION: Add the parameters Loan Rate\^{}2 and Original Term to a
+Linear Regression model with both mixed effect (synergy effect) and
+separately in order to model ExposureRatio
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k}{def} \PY{n+nf}{TransformMergeAndCleanData}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{df2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    A function used to merge, transform and clean the dataframes according to the above \PYZsq{}ACTIONS\PYZsq{} in the analysis. }
+         \PY{l+s+sd}{    df := The StaticData dataframe}
+         \PY{l+s+sd}{    df2 := The Performance dataframe}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{}0\PYZhy{} Merge the two DataFrames}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df2}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}1\PYZhy{} Create new Default24 column and use this instead in the models}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{default24}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Convert the Origination Date to date object}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginationDateFormatted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Origination Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{date}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}2\PYZhy{} Employment Status is either Employed, Unemployed or other. Create a series which has entries 0 and 1 specifying whether it\PYZsq{}s one or the other}
+             \PY{n}{Employment} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Borrower}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{s Employment Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{drop\PYZus{}first}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}3\PYZhy{} We will create buckets of 5 for Original Term}
+             \PY{n}{x} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{xdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{OriginalTermBucket} \PY{o}{=} \PY{n}{xdf}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{getTermCategory}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             \PY{n}{OriginalTermBucket}\PY{o}{.}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginalTermBucket}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{}4\PYZhy{} Create dummy indicators for Tier}
+             \PY{n}{RiskTier} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Risk Tier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{drop\PYZus{}first}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}5\PYZhy{} Create LTV buckets}
+             \PY{n}{LTVBucket} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LTV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{getLTVCategory}\PY{p}{)}
+             \PY{n}{LTVBucket}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LTVBucket}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{}6\PYZhy{} Create a Monthly Instalment pct column and bucket them}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyInstalmentpct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monthly Instalment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InstalmentpctBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyInstalmentpct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{getInstalmentpctCategory}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}7\PYZhy{} Create an ExposureRatio column}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}8\PYZhy{} Create APR\PYZca{}2 and APR*OriginalTerm Columns}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2OriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRateOriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{n}{Type1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{drop\PYZus{}first}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}Concat the series to the data frame}
+             \PY{n}{df\PYZus{}out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}out}\PY{p}{,}\PY{n}{Employment}\PY{p}{,}\PY{n}{OriginalTermBucket}\PY{p}{,}\PY{n}{RiskTier}\PY{p}{,}\PY{n}{LTVBucket}\PY{p}{,}\PY{n}{Type1}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Remove records which have null Status 12 and Default24 entries separately}
+             \PY{k}{return} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{df\PYZus{}out}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{df\PYZus{}out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df\PYZus{}final12}\PY{p}{,}\PY{n}{df\PYZus{}final24} \PY{o}{=} \PY{n}{TransformMergeAndCleanData}\PY{p}{(}\PY{n}{StaticData}\PY{p}{,}\PY{n}{Performance}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{df\PYZus{}final12}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}    Status 12  Status 24  Default24 OriginationDateFormatted  \textbackslash{}
+         1        0.0        0.0        0.0               2014-12-03   
+         2        0.0        0.0        0.0               2014-12-16   
+         3        0.0        0.0        0.0               2014-12-17   
+         4        0.0        0.0        0.0               2014-12-18   
+         5        0.0        0.0        0.0               2014-12-22   
+         
+            MonthlyInstalmentpct  InstalmentpctBucket  Value  LoanRate2  \textbackslash{}
+         1              3.230143                  3.0    NaN   0.053547   
+         2              2.985235                  2.5    NaN   0.081245   
+         3              3.310211                  3.0    NaN   0.059918   
+         4              3.342916                  3.0    NaN   0.105502   
+         5              2.619870                  2.5    NaN   0.014856   
+         
+            LoanRate2OriginalTerm  LoanRateOriginalTerm {\ldots}  Tier 3  Tier 4  Tier 5  \textbackslash{}
+         1               1.820602              7.867685 {\ldots}       0       0       0   
+         2               5.199698             18.242276 {\ldots}       0       0       1   
+         3               2.696304             11.015157 {\ldots}       0       0       1   
+         4               4.536578             13.966849 {\ldots}       0       0       1   
+         5               0.698217              5.728543 {\ldots}       0       0       0   
+         
+            Tier 6  Tier 7  Tier 8  Untiered  LTVBucket  B  C  
+         1       0       0       0         0        0.8  1  0  
+         2       0       0       0         0        0.9  1  0  
+         3       0       0       0         0        0.8  0  0  
+         4       0       0       0         0        0.7  1  0  
+         5       0       0       0         0        0.9  1  0  
+         
+         [5 rows x 24 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} What is our baseline model performance metric?}
+         \PY{n}{numDefault12} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{numDefault24} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final24}\PY{p}{[}\PY{n}{df\PYZus{}final24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} If we classify all consumers to not default...}
+         \PY{n}{base12} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{numDefault12}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{base24} \PY{o}{=} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{numDefault24}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}final24}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The base prediction probability for default within 12 months is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{base12}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The base prediction probability for default within 24 months is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{base24}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The base prediction probability for default within 12 months is 0.9660670966215017
+The base prediction probability for default within 24 months is 0.948730844328738
+
+    \end{Verbatim}
+
+    \subsection{Regression}\label{regression}
+
+    \paragraph{Logistic Regression}\label{logistic-regression}
+
+    We've seen above that the following metrics may be related to an
+increase in default probability
+
+1- ACTION: Add loan rate to the model parameters
+
+2- ACTION: Add Original Loan Size to the model parameters
+
+3- ACTION: Add dummy data for Employment Status to the model parameters
+
+4- ACTION: Add Term Buckets to model parameters
+
+5- ACTION: Add APR as a continuous variable to the model - REMOVE
+
+6- ACTION: Add dummy data for Risk Tier to the model
+
+7- ACTION: Add LTV buckets as a numerical feature to the model
+parameters
+
+8- ACTION: Add the bucketed Monthly Instalment pct buckets to the model
+as a parameter
+
+9- ACTION: Add the parameters Loan Rate\^{}2 and Original Term to a
+Linear Regression model with both mixed effect (synergy effect) and
+separately in order to model ExposureRatio
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}493}]:} \PY{n}{logisticParams} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Untiered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Self\PYZhy{}employed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginalTermBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LTVBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MonthlyInstalmentpct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{linearParams} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRateOriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2OriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Here we look at the logistic regression performed using the above
+selected parameters:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}496}]:} \PY{c+c1}{\PYZsh{} Select the parameters}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Select the response variable}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Apply the logistic regression model from statsmodels}
+          \PY{c+c1}{\PYZsh{}X = sm.add\PYZus{}constant(X)}
+          \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{Logit}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+          \PY{n}{logistic12} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{logistic12}\PY{o}{.}\PY{n}{summary2}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{logistic12}\PY{o}{.}\PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 0.142770
+         Iterations 9
+                           Results: Logit
+=====================================================================
+Model:                 Logit             No. Iterations:    9.0000   
+Dependent Variable:    Status 12         Pseudo R-squared:  0.036    
+Date:                  2018-10-14 17:34  AIC:               9681.8017
+No. Observations:      33802             BIC:               9808.2259
+Df Model:              14                Log-Likelihood:    -4825.9  
+Df Residuals:          33787             LL-Null:           -5008.0  
+Converged:             1.0000            Scale:             1.0000   
+---------------------------------------------------------------------
+                      Coef.  Std.Err.    z     P>|z|   [0.025  0.975]
+---------------------------------------------------------------------
+Loan Rate             6.1639   0.6946   8.8738 0.0000  4.8025  7.5254
+Original Loan Size    0.0000   0.0000   7.6096 0.0000  0.0000  0.0001
+Tier 2               -2.8078   0.2766 -10.1506 0.0000 -3.3499 -2.2656
+Tier 3               -2.2206   0.2009 -11.0542 0.0000 -2.6143 -1.8269
+Tier 4               -1.8535   0.1938  -9.5651 0.0000 -2.2333 -1.4737
+Tier 5               -1.3482   0.1910  -7.0605 0.0000 -1.7225 -0.9740
+Tier 6               -1.5777   0.2275  -6.9355 0.0000 -2.0235 -1.1318
+Tier 7               -0.9574   0.2187  -4.3775 0.0000 -1.3861 -0.5288
+Tier 8               -0.6750   0.2417  -2.7924 0.0052 -1.1487 -0.2012
+Untiered             -0.7137   0.6361  -1.1220 0.2619 -1.9605  0.5330
+Self-employed         0.2095   0.0842   2.4886 0.0128  0.0445  0.3745
+Other                -0.1588   0.1815  -0.8751 0.3815 -0.5145  0.1969
+OriginalTermBucket   -0.0396   0.0028 -14.1184 0.0000 -0.0451 -0.0341
+LTVBucket             0.9402   0.1715   5.4808 0.0000  0.6040  1.2764
+MonthlyInstalmentpct -0.8126   0.0576 -14.1021 0.0000 -0.9255 -0.6996
+=====================================================================
+
+Loan Rate               6.163935
+Original Loan Size      0.000041
+Tier 2                 -2.807756
+Tier 3                 -2.220580
+Tier 4                 -1.853543
+Tier 5                 -1.348238
+Tier 6                 -1.577679
+Tier 7                 -0.957448
+Tier 8                 -0.674971
+Untiered               -0.713740
+Self-employed           0.209474
+Other                  -0.158814
+OriginalTermBucket     -0.039582
+LTVBucket               0.940177
+MonthlyInstalmentpct   -0.812586
+dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}497}]:} \PY{c+c1}{\PYZsh{} Select the parameters}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df\PYZus{}final24}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Select the response valriable}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}final24}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Apply the logistic regression model from statsmodels}
+          \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{Logit}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+          \PY{n}{logistic24} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{logistic24}\PY{o}{.}\PY{n}{summary2}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{logistic24}\PY{o}{.}\PY{n}{params}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 0.193461
+         Iterations 9
+                           Results: Logit
+=====================================================================
+Model:                Logit             No. Iterations:    9.0000    
+Dependent Variable:   Default24         Pseudo R-squared:  0.043     
+Date:                 2018-10-14 17:34  AIC:               13108.7122
+No. Observations:     33802             BIC:               13235.1363
+Df Model:             14                Log-Likelihood:    -6539.4   
+Df Residuals:         33787             LL-Null:           -6836.0   
+Converged:            1.0000            Scale:             1.0000    
+---------------------------------------------------------------------
+                      Coef.  Std.Err.    z     P>|z|   [0.025  0.975]
+---------------------------------------------------------------------
+Loan Rate             6.9268   0.5780  11.9834 0.0000  5.7939  8.0597
+Original Loan Size    0.0000   0.0000   6.9858 0.0000  0.0000  0.0000
+Tier 2               -2.9373   0.2496 -11.7666 0.0000 -3.4265 -2.4480
+Tier 3               -2.0834   0.1730 -12.0453 0.0000 -2.4224 -1.7444
+Tier 4               -1.7842   0.1686 -10.5801 0.0000 -2.1147 -1.4537
+Tier 5               -1.3130   0.1674  -7.8439 0.0000 -1.6410 -0.9849
+Tier 6               -1.5489   0.1954  -7.9264 0.0000 -1.9319 -1.1659
+Tier 7               -0.9743   0.1899  -5.1295 0.0000 -1.3466 -0.6020
+Tier 8               -0.7138   0.2086  -3.4217 0.0006 -1.1226 -0.3049
+Untiered             -0.7810   0.5601  -1.3943 0.1632 -1.8788  0.3168
+Self-employed         0.1415   0.0712   1.9873 0.0469  0.0019  0.2811
+Other                -0.0173   0.1374  -0.1260 0.8997 -0.2865  0.2519
+OriginalTermBucket   -0.0353   0.0023 -15.0995 0.0000 -0.0399 -0.0307
+LTVBucket             0.6035   0.1392   4.3356 0.0000  0.3307  0.8763
+MonthlyInstalmentpct -0.6580   0.0459 -14.3263 0.0000 -0.7480 -0.5680
+=====================================================================
+
+Loan Rate               6.926804
+Original Loan Size      0.000034
+Tier 2                 -2.937258
+Tier 3                 -2.083372
+Tier 4                 -1.784209
+Tier 5                 -1.312956
+Tier 6                 -1.548897
+Tier 7                 -0.974333
+Tier 8                 -0.713764
+Untiered               -0.780970
+Self-employed           0.141530
+Other                  -0.017306
+OriginalTermBucket     -0.035327
+LTVBucket               0.603464
+MonthlyInstalmentpct   -0.657991
+dtype: float64
+
+    \end{Verbatim}
+
+    In the above summaries, we see that all parameters are statistically
+significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}498}]:} \PY{c+c1}{\PYZsh{} Select the parameters}
+          \PY{n}{X} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Select the response variable}
+          \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Status 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Fit the Logistic Regression model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}499}]:} \PY{n}{lr12} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{lr12}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}499}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                    penalty='l2', random\_state=None, solver='liblinear', tol=0.0001,
+                    verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    The coefficients of the model are
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}500}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{Predict}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{classifier}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.97855} \PY{k}{else} \PY{k+kc}{False} \PY{p}{,}\PY{n}{classifier}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 1.59976095e-01  2.92372458e-05 -4.54305740e-01 -6.15464271e-01
+  -3.81312261e-01  1.55597216e-01  5.40086770e-02  5.30806496e-01
+   3.21431006e-01  1.08024664e-02  7.81397640e-02 -6.23405405e-02
+  -3.31943323e-02  6.52889904e-02 -5.40578578e-01]]
+[-0.46518357]
+
+    \end{Verbatim}
+
+    At this point we can use the predictions from the fitted model to get
+the probability distribution of the test data set. We see that the
+probability distribution of the test dataset is left skewed. This
+probability distribution is for the probability of default and as
+expected, defaulting is a rare event.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}501}]:} \PY{c+c1}{\PYZsh{} Probability distribution of default for the dataset}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{kde}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The mean of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{a} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The median of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The IQR of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{iqr}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{rng}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of this distribution is 0.035513834798503834
+The median of this distribution is 0.033
+The IQR of this distribution is 0.017999999999999995
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can then calculate the default probability of the consumers with the
+following profiles (person1 has in fact defaulted within the 12 month
+period but person2 hasn't). The main differences between these two
+consumers is the Tier and Loan Rate. Consumer1 is in Tier 5 whereas
+consumer2 is in Tier 3.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}502}]:} \PY{n}{person1} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{]}
+          
+          \PY{n}{person2} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}503}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer1}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{person1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer2}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{person2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Consumer1
+
+ Loan Rate                  0.173690
+Original Loan Size      2441.177116
+Tier 2                     0.000000
+Tier 3                     0.000000
+Tier 4                     0.000000
+Tier 5                     1.000000
+Tier 6                     0.000000
+Tier 7                     0.000000
+Tier 8                     0.000000
+Untiered                   0.000000
+Self-employed              0.000000
+Other                      0.000000
+OriginalTermBucket        35.000000
+LTVBucket                  1.000000
+MonthlyInstalmentpct       3.586794
+Name: 43, dtype: float64 
+
+ Consumer2
+
+ Loan Rate                  0.076448
+Original Loan Size      2528.296369
+Tier 2                     0.000000
+Tier 3                     1.000000
+Tier 4                     0.000000
+Tier 5                     0.000000
+Tier 6                     0.000000
+Tier 7                     0.000000
+Tier 8                     0.000000
+Untiered                   0.000000
+Self-employed              0.000000
+Other                      0.000000
+OriginalTermBucket        45.000000
+LTVBucket                  0.900000
+MonthlyInstalmentpct       3.234589
+Name: 39, dtype: float64
+
+    \end{Verbatim}
+
+    The fitted logistic regression model has the following form:
+
+\[logOdds = \ln (\frac{P(D)}{1-P(D)}) = \beta_0 + \beta_1 X_1 + ... + \beta_n X_n\]
+
+In the above model, the coefficient of Loan Rate and Loan Rate\^{}2 is
+0.09 and 0.04 respectively. This means that increasing the loan rate is
+correlated with an increase in the probability of default.
+
+By taking the exponential of both sides of this equation we can retrieve
+the probability of default (D):
+
+\[P(D) = \frac{\exp(\beta_0 + \beta_1 X_1 + ... + \beta_n X_n)}{1+\exp(\beta_0 + \beta_1 X_1 + ... + \beta_n X_n)}\]
+
+Programmatically, this is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}505}]:} \PY{n}{logprob} \PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{logisticParams}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{logprob} \PY{o}{+}\PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{person1}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Person1 has a default probability of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{logprob}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{math}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{logprob}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{logprob} \PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{logisticParams}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{logprob} \PY{o}{+}\PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{person2}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Person2 has a default probability of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{logprob}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{math}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{logprob}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Person1 has a default probability of 0.0374750850615914
+Person2 has a default probability of 0.015097223969645582
+
+    \end{Verbatim}
+
+    We can utilise the \emph{predict\_proba} method of the \emph{Logistic
+Regression} object in order to get these values as well:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}506}]:} \PY{n}{person1} \PY{o}{=} \PY{n}{person1}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{person2} \PY{o}{=} \PY{n}{person2}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}507}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default probability of Consumer1 = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{person1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default probability of Consumer2 = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{person2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Default probability of Consumer1 = 0.0374750850615914
+Default probability of Consumer2 = 0.01509722396964558
+
+    \end{Verbatim}
+
+    We do the same for the probability of default within the first 24 months
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}508}]:} \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}final24}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{lr24} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{lr24}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Probability distribution of default for the dataset}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{kde}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The mean of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{a} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{lr24}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The median of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{statistics}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The IQR of this distribution is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{iqr}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{rng}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default probability of Consumer1 = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{person1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Default probability of Consumer2 = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lr24}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{person2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 7.44184277e-01  3.05704102e-05 -1.50912489e+00 -1.00591929e+00
+  -5.34173216e-01  6.61836261e-02  4.98115769e-02  5.86625872e-01
+   1.20715468e+00  5.23450318e-02  1.29901498e-01 -1.56726967e-02
+  -2.51575783e-02  4.49891285e-01 -2.72645542e-01]]
+[-1.5881804]
+The mean of this distribution is 0.052582835431231746
+The median of this distribution is 0.049
+The IQR of this distribution is 0.03900000000000001
+Default probability of Consumer1 = 0.06141846033670287
+Default probability of Consumer2 = 0.016807124096223633
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    These probabilities puts Consumer1 in to the riskier part of the
+distribution (i.e. a riskier consumer within the population) and
+Consumer2 into the safer consumer (i.e. less then median of the
+distribution). As expected, the probability of default within the first
+24 months is greater than that for the first 12 months.
+
+This is how we interpret the above probabilities given the definitions
+of the transformed columns:
+
+\[D_{24} \cup D_{12} = D_{24}\]
+
+\[D_{24} \cap D_{12} = D_{12}\]
+
+\[D_{24} \cap D_{12}^c = D_{24}\]
+
+\[D_{24} = \{D_{24} \cap D_{12}^c\} \cup \{ D_{24} \cap D_{12} \}\]
+
+\(\{D_{24} \cap D_{12}^c\}\) and \$ \{ D\_\{24\} \cap D\_\{12\} \}\$
+partition the universal set and since \(D_{12} \subseteq D_{24}\), \$
+\{D\_\{24\} \cap D\_\{12\}\^{}c\} = \{D\_\{24\} / D\_\{12\}\} \$ and \$
+\{ D\_\{24\} \cap D\_\{12\} \} = D\_\{12\}\$
+
+So,
+
+\[P(D_{24}) = P(D_{24}/D_{12}) + P(D_{12}) \implies P(D_{24}/D_{12}) = P(D_{24}) - P(D_{12})\]
+
+We will need this result when we want to calculate the value (how much
+we have salvaged) of a consumer loan based on how much recovery a
+consumer as achieved given that they have defaulted.
+
+Now let's model the \emph{Value} from all those that have defaulted.
+
+    \paragraph{Linear Regression}\label{linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}509}]:} \PY{n}{temp} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exposure At Default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PYZbs{}
+          \PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loan Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Term}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRate2OriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LoanRateOriginalTerm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tier 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Untiered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginalTermBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{X} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{n}{linearParams}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{X\PYZus{}new} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+          \PY{n}{est} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{X\PYZus{}new}\PY{p}{)}
+          \PY{n}{est2} \PY{o}{=} \PY{n}{est}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{est2}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                  Value   R-squared:                       0.055
+Model:                            OLS   Adj. R-squared:                  0.053
+Method:                 Least Squares   F-statistic:                     39.48
+Date:                Sun, 14 Oct 2018   Prob (F-statistic):           3.48e-32
+Time:                        17:36:17   Log-Likelihood:                -26661.
+No. Observations:                2733   AIC:                         5.333e+04
+Df Residuals:                    2728   BIC:                         5.336e+04
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+=========================================================================================
+                            coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                  6506.5400    640.008     10.166      0.000    5251.591    7761.489
+Loan Rate             -6.548e+04   8318.508     -7.872      0.000   -8.18e+04   -4.92e+04
+LoanRate2              1.558e+05   2.65e+04      5.886      0.000    1.04e+05    2.08e+05
+LoanRateOriginalTerm    810.2870    128.105      6.325      0.000     559.095    1061.479
+LoanRate2OriginalTerm -2292.0738    485.950     -4.717      0.000   -3244.941   -1339.206
+==============================================================================
+Omnibus:                     1183.703   Durbin-Watson:                   1.999
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             7557.133
+Skew:                           1.945   Prob(JB):                         0.00
+Kurtosis:                      10.158   Cond. No.                     4.12e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 4.12e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+    \end{Verbatim}
+
+    For the linear regression model above, we can see that all parameters
+are statistically significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}510}]:} \PY{n}{temp} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exposure At Default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o+ow}{not} \PY{n}{x}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PYZbs{}
+          \PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}temp = temp[(temp[\PYZsq{}Original Term\PYZsq{}] \PYZlt{}= 71)]}
+          
+          \PY{n}{X} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{n}{linearParams}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}X\PYZus{}train, X\PYZus{}test, y\PYZus{}train, y\PYZus{}test = train\PYZus{}test\PYZus{}split(X, y, test\PYZus{}size=0.3, random\PYZus{}state=42)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}511}]:} \PY{n}{lm} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}511}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}512}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ + }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ LR + }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ LR\PYZca{}2 + }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ LR * OT + }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ LR\PYZca{}2 * OT}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lm}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{,}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{lm}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Value = 6506.539994099194 + -65482.482566579216 LR + 155813.8648940269 LR\^{}2 + 810.2869754252193 LR * OT + -2292.073807838436 LR\^{}2 * OT
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}513}]:} \PY{n}{predictions} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}514}]:} \PY{n}{residuals} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{predictions}
+          \PY{c+c1}{\PYZsh{}sns.distplot(residuals)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{residuals}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{residuals}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}514}]:} <matplotlib.collections.PathCollection at 0x2131f62f128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we have obtained the following equation relating Loan Rate (LR),
+Original Term (OT), Original Loan Size (OS) and Total Recovery (TR):
+
+\[\text{Value} = OS \times TR = 6506.54 + (810.287 \times OT - 65480) \times LR - (155900 - 2292 \times OT) \times LR^2\]
+
+It should be noted that for values of OT within the range \([0,68]\),
+this gives a concave quadratic equation in LR.
+
+    \subsection{Going Further}\label{going-further}
+
+We might like to know how risky it is in a monetary sense to embark on a
+loan arrangement with a counterparty which has a certain default
+probability. In order to come to a conclusion, we can factor in the
+amount that is at risk (Original Loan Size := OLS), the default risk
+(\(P(D_{12})\)), the Original Term (OT), the Loan rate (LR) offered
+(though this should be a function of the risk itself but here we take it
+as a given) and the Total Recovery percentage (TR).
+
+i.e. we want to calculate the Value given that this person defaults
+multiplied by the probability of this person defaulting. This is
+Expected Value (EV):
+
+\[EV = P(D_{12}|\theta,OLS,OT,LR)*(Value | D_{12}) + P(D_{12}^c | \theta,OLS,OT,LR) * (Value | D_{12}^c)\]
+\[ = P(D_{12}|\theta,OLS,OT,LR)*(Value | D_{12}) + (1 - P(D_{12} | \theta,OLS,OT,LR)) * (OLS*LR)\]
+
+In the above equation, \(P(D_{12})\) is the default probability within
+12 months, \(P(D_{12}^c)=1-P(D_{12})\), and \(\theta\) represents all
+the other variables we have used in our model to predict default
+probability.
+
+Even though OT, LR and OLS are expected to be related variables, below
+we can fix a value for OT and OLS and see what we can expect the shape
+of the EV curve to look like:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}534}]:} \PY{n}{OT} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{OLS} \PY{o}{=} \PY{l+m+mi}{5000}
+          
+          \PY{c+c1}{\PYZsh{} Let LR range from 0 to 1000}
+          \PY{n}{LR} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} We use our linear regression fitted values}
+          \PY{n}{Value} \PY{o}{=} \PY{l+m+mf}{6506.54} \PY{o}{+} \PY{p}{(}\PY{l+m+mf}{810.287} \PY{o}{*} \PY{n}{OT} \PY{o}{\PYZhy{}} \PY{l+m+mi}{65500}\PY{p}{)} \PY{o}{*} \PY{n}{LR} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{156000} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2292} \PY{o}{*} \PY{n}{OT}\PY{p}{)} \PY{o}{*} \PY{n}{LR}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+          
+          \PY{c+c1}{\PYZsh{} This is the default probability within 12 months (i.e. an exponential function)}
+          \PY{n}{a} \PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{intercept\PYZus{}} \PY{o}{+} \PY{n}{lr12}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{LR} \PY{o}{+} \PY{n}{lr12}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]} \PY{o}{*} \PY{n}{OT}
+          \PY{n}{ProbDefault12} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} The total value is then the an function of default and the value given default}
+          \PY{n}{totValue} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{ProbDefault12}\PY{p}{)}\PY{o}{*}\PY{n}{OLS}\PY{o}{*}\PY{n}{LR} \PY{o}{+} \PY{n}{ProbDefault12}\PY{o}{*}\PY{p}{(}\PY{n}{Value} \PY{o}{\PYZhy{}} \PY{n}{OLS}\PY{o}{*}\PY{n}{LR}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{LR}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{totValue}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}534}]:} <matplotlib.collections.PathCollection at 0x213244a2e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In this case, we may offer a loan rate of around 0.35 for this person.
+
+    Using the models we have derived, we can come up with an offer for
+Person1 and Person2:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}524}]:} \PY{n}{person1} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{]}
+          
+          \PY{n}{person2} \PY{o}{=} \PY{n}{df\PYZus{}final12}\PY{p}{[}\PY{n}{logisticParams}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{38}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer1}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{person1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumer2}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{person2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Consumer1
+ Loan Rate                  0.173690
+Original Loan Size      2441.177116
+Tier 2                     0.000000
+Tier 3                     0.000000
+Tier 4                     0.000000
+Tier 5                     1.000000
+Tier 6                     0.000000
+Tier 7                     0.000000
+Tier 8                     0.000000
+Untiered                   0.000000
+Self-employed              0.000000
+Other                      0.000000
+OriginalTermBucket        35.000000
+LTVBucket                  1.000000
+MonthlyInstalmentpct       3.586794
+Name: 43, dtype: float64 
+
+ Consumer2
+ Loan Rate                  0.076448
+Original Loan Size      2528.296369
+Tier 2                     0.000000
+Tier 3                     1.000000
+Tier 4                     0.000000
+Tier 5                     0.000000
+Tier 6                     0.000000
+Tier 7                     0.000000
+Tier 8                     0.000000
+Untiered                   0.000000
+Self-employed              0.000000
+Other                      0.000000
+OriginalTermBucket        45.000000
+LTVBucket                  0.900000
+MonthlyInstalmentpct       3.234589
+Name: 39, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}525}]:} \PY{c+c1}{\PYZsh{} Let LR range from 0 to 1000}
+          \PY{n}{LR} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}
+          
+          \PY{n}{DummyConsumers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{LR}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{persontemp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{persontemp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{LR}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{logisticParams}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{persontemp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{person1}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+              \PY{n}{DummyConsumers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{persontemp}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Probability of default within 12 months of person1 as a function of loan rate}
+          \PY{n}{prob1} \PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{DummyConsumers}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{OLS} \PY{o}{=} \PY{n}{person1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{OT} \PY{o}{=} \PY{n}{person1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginalTermBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} The total value is then the an function of default and the value given default}
+          \PY{n}{totValue} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{prob1}\PY{p}{)}\PY{o}{*}\PY{n}{OLS}\PY{o}{*}\PY{n}{LR} \PY{o}{+} \PY{n}{prob1}\PY{o}{*}\PY{p}{(}\PY{n}{Value} \PY{o}{\PYZhy{}} \PY{n}{OLS}\PY{o}{*}\PY{n}{LR}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{LR}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{totValue}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}525}]:} <matplotlib.collections.PathCollection at 0x21324cac828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The best Loan Rate for person1 is therefore around 0.4. However, this
+consumer was given a Loan Rate of 0.17
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}533}]:} \PY{c+c1}{\PYZsh{} Let LR range from 0 to 1000}
+          \PY{n}{LR} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{50}\PY{p}{)}
+          
+          \PY{n}{DummyConsumers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{LR}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{persontemp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{persontemp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{LR}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{logisticParams}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{persontemp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{person2}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+              \PY{n}{DummyConsumers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{persontemp}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Probability of default within 12 months of person1 as a function of loan rate}
+          \PY{n}{prob1} \PY{o}{=} \PY{n}{lr12}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{DummyConsumers}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{OLS} \PY{o}{=} \PY{n}{person1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Loan Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{OT} \PY{o}{=} \PY{n}{person1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OriginalTermBucket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} The total value is then a function of default and the value given default}
+          \PY{n}{totValue} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{prob1}\PY{p}{)}\PY{o}{*}\PY{n}{OLS}\PY{o}{*}\PY{n}{LR} \PY{o}{+} \PY{n}{prob1}\PY{o}{*}\PY{p}{(}\PY{n}{Value} \PY{o}{\PYZhy{}} \PY{n}{OLS}\PY{o}{*}\PY{n}{LR}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{LR}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{totValue}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}533}]:} <matplotlib.collections.PathCollection at 0x21324b8cbe0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As seen before, person2 is much less risky, as a result we are able to
+give a much larger Loan Rate (around 0.9) in order to maximise our
+returns.
+
+It must be said that less risky individuals are offered lower Loan Rates
+in general contrary to what we have just seen. The reason is that there
+exists a hypothetical function of customer satisfaction and industry
+competition. In the above example with person2, we cannot entice this
+consumer with a Loan Rate of 0.9, since the market can offer a better
+rate and still make a return. So in order to make use of the above
+model, we would need a penalty function dependent on customer
+satisfaction and a penalty function for administration work. This would
+also explain why the consumers were offered a lower rate than the
+optimum for the lender.
+
+Once this has been incorporated in the form of customer churn, it may be
+possible to contact the customer to offer a better rate if this would
+off-set the penalty due to customer churn, i.e. we are offering a better
+rate in order to reduce the probability of losing this customer and
+therefore losing the return we would have made if we offered a slightly
+lower Loan Rate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}351}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}\PY{p}{,}\PY{n}{KNeighborsRegressor}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{naive\PYZus{}bayes}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{c+c1}{\PYZsh{} tempdf = df\PYZus{}final12}
+          
+          \PY{c+c1}{\PYZsh{} X = df\PYZus{}final12.reset\PYZus{}index()[[\PYZsq{}Loan Rate\PYZsq{},\PYZsq{}Original Loan Size\PYZsq{},\PYZsq{}APR\PYZsq{},\PYZbs{}}
+          \PY{c+c1}{\PYZsh{}                               \PYZsq{}Tier 2\PYZsq{},\PYZsq{}Tier 3\PYZsq{},\PYZsq{}Tier 4\PYZsq{},\PYZsq{}Tier 5\PYZsq{}, \PYZsq{}Tier 6\PYZsq{}, \PYZsq{}Tier 7\PYZsq{}, \PYZsq{}Tier 8\PYZsq{},\PYZsq{}Untiered\PYZsq{},\PYZbs{}}
+          \PY{c+c1}{\PYZsh{}                              \PYZsq{}Self\PYZhy{}employed\PYZsq{},\PYZsq{}Other\PYZsq{},\PYZsq{}OriginalTermBucket\PYZsq{},\PYZsq{}LTVBucket\PYZsq{},\PYZsq{}MonthlyInstalmentpct\PYZsq{}]]}
+          \PY{c+c1}{\PYZsh{} y = df\PYZus{}final12.reset\PYZus{}index()[\PYZsq{}Status 12\PYZsq{}]}
+          
+          \PY{c+c1}{\PYZsh{} X\PYZus{}train, X\PYZus{}test, y\PYZus{}train, y\PYZus{}test = train\PYZus{}test\PYZus{}split(X, y, test\PYZus{}size=0.33, random\PYZus{}state=42)}
+          
+          \PY{n}{kn} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+          \PY{n}{kn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+          \PY{n}{predictions} \PY{o}{=} \PY{n}{kn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+        0.0       0.97      1.00      0.98      9810
+        1.0       0.00      0.00      0.00       331
+
+avg / total       0.94      0.97      0.95     10141
+
+[[9810    0]
+ [ 331    0]]
+0.9673602208855142
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}HVAD\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}metrics\textbackslash{}classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn\_for)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}440}]:} \PY{n}{kn}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{person2}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}HVAD\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:1: FutureWarning: reshape is deprecated and will raise in a subsequent release. Please use .values.reshape({\ldots}) instead
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}440}]:} array([[1., 0.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}436}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{kn}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}436}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1dc0bb0d0b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}349}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+        0.0       0.95      1.00      0.97     10577
+        1.0       0.00      0.00      0.00       578
+
+avg / total       0.90      0.95      0.92     11155
+
+[[10577     0]
+ [  578     0]]
+0.9481846705513223
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}HVAD\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}metrics\textbackslash{}classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn\_for)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
